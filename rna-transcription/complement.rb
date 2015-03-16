@@ -1,6 +1,6 @@
 class Complement
-  DNA_NUCLEOTIDES = %w(G C T A)
-  RNA_NUCLEOTIDES = %w(C G A U)
+  DNA_NUCLEOTIDES = "GCTA"
+  RNA_NUCLEOTIDES = "CGAU"
 
   def self.of_dna(dna_string)
     find_complement(dna_string, DNA_NUCLEOTIDES, RNA_NUCLEOTIDES)
@@ -12,11 +12,8 @@ class Complement
 
   private
 
-  def self.find_complement(string, source_array, final_array)
-    complement_string = ''
-    string.chars.each do |char|
-      complement_string += final_array[source_array.index(char) || raise(ArgumentError)]
-    end
-    complement_string
+  def self.find_complement(string, source_array, complements_array)
+    raise ArgumentError, "Sequence contains invalid characters" unless string.delete(source_array).empty?
+    string.tr(source_array, complements_array)
   end
 end
