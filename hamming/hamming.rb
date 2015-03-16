@@ -1,13 +1,8 @@
 module CharSequenceString
   refine String do
     def char_difference(other)
-      difference = 0
-
-      self.chars.each_with_index do |char, index|
-        difference += 1 if char != other[index]
-      end
-
-      difference
+      char_count = [self.length, other.length].max
+      (0..char_count).count { |n| self.chars[n] != other.chars[n] }
     end
   end
 end
